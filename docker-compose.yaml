@@ -1,0 +1,19 @@
+version: "3.6"
+
+networks:
+  summarizer_network:
+
+services:
+  summarizer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - summarizer_network
+    working_dir: &working_dir
+      /summarizer
+    volumes:
+      - type: bind
+        source: ./
+        target: *working_dir
+    command: ["sleep", "infinity"]
