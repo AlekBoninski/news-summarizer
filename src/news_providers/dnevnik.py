@@ -39,7 +39,7 @@ class DnevnikCrawler:
     def fetch_latest_articles(self, articles_to_fetch=10):
         article_links_and_titles = self.__fetch_latest_article_links_and_titles(articles_to_fetch)
         articles = [self.__fetch_article(link, title) for (link, title) in article_links_and_titles]
-        return list(filter(lambda article: article.text.strip() != '' and article.title.strip() != '', articles))
+        return list(filter(lambda article: article is not None and article.text.strip() != '' and article.title.strip() != '', articles))
 
     def fetch_article(self, article_url):
         return self.__fetch_article(article_url)
