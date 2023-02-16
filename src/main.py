@@ -1,5 +1,4 @@
 import datetime
-import json
 from news_providers.dnevnik import DnevnikCrawler
 from summarizer.comparators import CosineSimilariryComparator
 from summarizer.summarizers import FrequencySummarizer, LexRankSummarizer, LuhnSummarizer

@@ -5,7 +5,11 @@ from summarizer.utils import calculate_word_frequency, load_stopwords_bg, tokeni
 from sumy.summarizers.lex_rank import LexRankSummarizer as SumyLexRankSummarizer
 from sumy.summarizers.luhn import LuhnSummarizer as SumyLuhnSummerizer
 
-class FrequencySummarizer:
+class AbstractSummarizer:
+    def summarize(self, ratio=0.3):
+        pass
+
+class FrequencySummarizer(AbstractSummarizer):
     def __init__(self, article):
         self.title = article.title
         self.words = word_tokenize(article.text)
@@ -36,7 +40,7 @@ class FrequencySummarizer:
                     self.sentence_scores[sentence] += freq
 
 
-class LexRankSummarizer:
+class LexRankSummarizer(AbstractSummarizer):
     def __init__(self, article):
         self.title = article.title
         self.document = tokenize_text(article.text)
@@ -50,7 +54,7 @@ class LexRankSummarizer:
 
         return SummarizedArticle(self.title, [s.original for s in self.document.sentences], summary)
 
-class LuhnSummarizer:
+class LuhnSummarizer(AbstractSummarizer):
     def __init__(self, article):
         self.title = article.title
         self.document = tokenize_text(article.text)

@@ -4,8 +4,14 @@ import numpy as np
 
 from summarizer.utils import calculate_word_frequency
 
+class AbstractComparator:
+    def __init__(self, source, target):
+        pass
 
-class CosineSimilariryComparator:
+    def similarity(self):
+        pass
+
+class CosineSimilariryComparator(AbstractComparator):
 
     def __init__(self, source, target):
         source_words = word_tokenize(source)
