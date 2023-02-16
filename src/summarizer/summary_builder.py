@@ -38,9 +38,12 @@ class SummaryBuilder:
             if lowest_score_node.text == self.last_sentence.text:
                 self.last_sentence = lowest_score_node.previous
 
-            self.last_sentence.next = SentenceNode(sentence, score)
-            self.last_sentence.next.previous = self.last_sentence
-            self.last_sentence = self.last_sentence.next
+            if self.last_sentence is None:
+                self.last_sentence = SentenceNode(sentence, score)
+            else:
+                self.last_sentence.next = SentenceNode(sentence, score)
+                self.last_sentence.next.previous = self.last_sentence
+                self.last_sentence = self.last_sentence.next
 
     def __get_lowest_score_node(self):
         current_sentence = self.last_sentence

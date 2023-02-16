@@ -1,4 +1,7 @@
 import re
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+from common import Document, Sentence
 
 QUANTITY_ABBREVIATIONS = re.compile(r'(?<=[\s\d/])(млн|хил|г|год|гр|кг|лв|лв|ст|ч|км)\.')
 ABBREVIATIONS = re.compile(r'(?<!\w)(изп|гр|ул|бул|обл|нар|Св|св|бр|чл|ал|нк)\.')
@@ -7,6 +10,16 @@ def load_stopwords_bg():
     stopwords_file = open('resources/stopwords/bulgarian')
     stopwords_file_content = stopwords_file.read()
     return set(stopwords_file_content.split('\n'))
+
+def tokenize_sentence(sentence):
+    words = word_tokenize(sentence)
+
+    return Sentence(words, sentence)
+
+def tokenize_text(text):
+    sentences = sent_tokenize(text)
+
+    return Document([tokenize_sentence(s) for s in sentences], text)
 
 def calculate_word_frequency(
         words,

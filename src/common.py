@@ -10,6 +10,26 @@ class NewsArticle:
     def __repr__(self):
         return 'NewsArticle(title={title})'.format(title=self.title)
 
+class Document:
+
+    def __init__(self, sentences, original=None):
+        self.sentences = sentences
+        self.original = original
+        self.__words = None
+
+    @property
+    def words(self):
+        if self.__words is not None:
+            return self.__words
+        self.__words = [word for sentence in self.sentences for word in sentence.words]
+        return self.__words
+
+class Sentence:
+
+    def __init__(self, words, original=None):
+        self.words = words
+        self.original = original
+
 class SummarizedArticle:
 
     def __init__(self, title, original_sentences, summarized_text):
